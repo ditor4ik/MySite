@@ -1,0 +1,56 @@
+{% load static %}
+{% block navbar %}
+        <div class="sticky-top">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+              <a class="navbar-brand" href="{% url "HomePage:index" %}">BookIdeas</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
+                        <img src="{% static "icons/door-open.svg" %}" alt="" width="16" height="16" title="door-open">
+                        Войти
+                    </a>
+                  </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="{% static "icons/person-plus.svg" %}" alt="" width="16" height="16" title="person-plus">
+                        Зарегистрироваться
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Электронная почта</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Пароль</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password1234">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary">Войти</button>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock navbar %}

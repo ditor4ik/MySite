@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}BookIdeas{% endblock %}</title>
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        {% block navbar %}
+            {% include 'HomePage\NavBar.html' %}
+        {% endblock navbar %}
+
+        <img src="{% static "img/background.png" %}" class="container-fluid">
+        <div class="container-fluid">
+
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    </body>
+</html>
