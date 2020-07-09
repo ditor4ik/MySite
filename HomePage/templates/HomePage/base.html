@@ -5,13 +5,47 @@
         <meta charset="utf-8" />
         <title>{% block title %}BookIdeas{% endblock %}</title>
         <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+        <style>
+        .parent{
+
+            position:relative;
+        }
+
+        .parent img{
+
+            display:block;
+        }
+
+        .parent div{
+            background: rgba(0,0,0,0.66);
+            position:absolute;
+            width:100%;
+            left:0;
+            bottom:0;
+            color:#fff;
+            padding:35% 10%;
+            text-align: left
+        }
+        .parent h1{
+            font-size: 400%;
+        }
+        .parent p1{
+            font-size: 200%;
+        }
+
+    </style>
     </head>
     <body>
         {% block navbar %}
-            {% include 'HomePage\NavBar.html' %}
+            {% include 'HomePage/NavBar.html' %}
         {% endblock navbar %}
-
-        <img src="{% static "img/background.png" %}" class="img-fluid">
+        <div class="parent">
+            <img src="{% static "img/background.png" %}" class="img-fluid">
+            <div>
+                <h1>BookIdeas</h1>
+                <p1>Воплощаем идеи писателей в жизнь</p1>
+            </div>
+        </div>
         <div class="container-fluid">
 
         </div>
