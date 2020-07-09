@@ -25,7 +25,7 @@ SECRET_KEY = 'k8nq*36w6(2tz3w2o$4d8x3amq*(roz@0r6g-r%z%n-&tz21nj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lal.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HomePage.apps.HomepageConfig',
+    'CheckIn.apps.CheckinConfig',
 ]
 
 MIDDLEWARE = [
@@ -118,4 +119,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
