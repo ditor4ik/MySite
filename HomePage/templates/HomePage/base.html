@@ -7,12 +7,10 @@
         <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
         <style>
         .parent{
-
             position:relative;
         }
 
         .parent img{
-
             display:block;
         }
 
@@ -37,7 +35,11 @@
     </head>
     <body>
         {% block navbar %}
-            {% include 'NavBar.html' %}
+            {% if 'NickName' in request.session %}
+                {% include 'NavBarAcc.html' %}
+            {% else %}
+                {% include 'NavBar.html' %}
+            {% endif %}
         {% endblock navbar %}
         <div class="parent">
             <img src="{% static "img/background.png" %}" class="img-fluid">
@@ -47,7 +49,9 @@
             </div>
         </div>
         <div class="container-fluid">
+            <br>
             <h1 align="center">Лента идей</h1>
+            <br>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>

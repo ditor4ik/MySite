@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HomePage.apps.HomepageConfig',
-    'CheckIn.apps.CheckinConfig',
+    'Account.apps.AccountConfig',
     'MainTemplates.apps.MaintemplatesConfig',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +126,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/'
+#AUTH_USER_MODEL = 'CheckIn.User'
