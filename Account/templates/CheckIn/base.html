@@ -1,5 +1,4 @@
 {% load static %}
-{% load crispy_forms_tags %}
 
 <!DOCTYPE HTML>
 <html>
@@ -29,22 +28,25 @@
                             <form method="post" novalidate>
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    {{ form.NickName|as_crispy_field }}
+                                    {{form.NickName.label_tag}}
+                                    {{ form.NickName }}
                                     <p1 class="errNN"></p1>
                                     <small id="NickHelp" class="form-text text-muted">Псевдоним должен состоять из 4-30 символов</small>
                                 </div>
                                 <div class="form-group">
-                                    {{ form.email|as_crispy_field }}
+                                    {{form.email.label_tag}}
+                                    {{ form.email}}
                                     <p1 class="errEmail"></p1>
                                 </div>
                                 <div class="form-group">
-                                    {{ form.Password|as_crispy_field }}
+                                    {{form.Password.label_tag}}
+                                    {{ form.Password}}
                                     <small id="PassHelp" class="form-text text-muted">Пароль должен состоять из 8-20 символов</small>
                                 </div>
                                 <div class="form-group">
-                                    {{ form.Password2|as_crispy_field }}
+                                    {{form.Password2.label_tag}}
+                                    {{ form.Password2}}
                                 </div>
-
                                 <button type="submit" class="btn btn-lg btn-success Check " disabled>Зарегистрироваться</button>
                             </form>
                         </div>

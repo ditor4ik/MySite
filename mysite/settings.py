@@ -40,10 +40,7 @@ INSTALLED_APPS = [
     'HomePage.apps.HomepageConfig',
     'Account.apps.AccountConfig',
     'MainTemplates.apps.MaintemplatesConfig',
-    'crispy_forms',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

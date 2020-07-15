@@ -1,5 +1,4 @@
 {% load static %}
-{% load crispy_forms_tags %}
 
 <!DOCTYPE HTML>
 <html>
@@ -27,10 +26,12 @@
                                 {% csrf_token %}
                                 <p1 class="RedError"></p1>
                                 <div class="form-group">
-                                    {{ form.NickName|as_crispy_field }}
+                                    {{form.NickName.label_tag}}
+                                    {{ form.NickName }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form.Password|as_crispy_field }}
+                                    {{form.Password.label_tag}}
+                                    {{ form.Password }}
                                 </div>
 
                                 <button type="submit" class="btn btn-lg btn-success Check " disabled>Войти</button>
