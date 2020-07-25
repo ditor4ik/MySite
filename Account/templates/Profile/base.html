@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{{ UserData.NickName }} | BookIdeas{% endblock %}</title>
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        {% block navbar %}
+            {% if 'ID' in request.session %}
+                {% include 'NavBarAcc.html' %}
+            {% else %}
+                {% include 'NavBar.html' %}
+            {% endif %}
+        {% endblock navbar %}
+        <div class="container-fluid">
+            <br>
+            <h1>Профиль <b>{{ UserData.NickName }}</b></h1>
+            <br>
+            <div class="">
+
+            </div>
+        </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    </body>
+</html>

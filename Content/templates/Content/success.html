@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Успешно! | BookIdeas{% endblock %}</title>
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+        <style>
+            h1{
+                color: lightgreen
+            }
+            p{
+                font-size:200%
+            }
+        </style>
+    </head>
+    <body>
+        {% block navbar %}
+            {% if 'NickName' in request.session %}
+                {% include 'NavBarAcc.html' %}
+            {% else %}
+                {% include 'NavBar.html' %}
+            {% endif %}
+        {% endblock navbar %}
+        <div class="container text-center">
+            <div class="row">
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1 class="font-weight-bold">Поздравляю, {{ request.session.NickName }}!</h1>
+                    <br>
+                    <p>
+                        Вы успешно создали страницу идей для своей книги, чтобы перейти на страницу книги нажмите <a href="{{ URL }}">сюда</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    </body>
+</html>

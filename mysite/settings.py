@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'HomePage.apps.HomepageConfig',
     'Account.apps.AccountConfig',
     'MainTemplates.apps.MaintemplatesConfig',
+    'Content.apps.ContentConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,5 +125,6 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images/upload')
 LOGIN_REDIRECT_URL = '/'
 #AUTH_USER_MODEL = 'CheckIn.User'

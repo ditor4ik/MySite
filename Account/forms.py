@@ -1,5 +1,4 @@
 from django import forms
-from .models import User
 
 
 class PersonCreateView(forms.Form):
@@ -13,3 +12,5 @@ class PersonCreateView(forms.Form):
 class SignInView(forms.Form):
     NickName = forms.CharField(max_length=30, label="Псевдоним", widget=forms.TextInput(attrs={'placeholder': 'YourNickName1234', 'class': 'NickNameJQ form-control'}))
     Password = forms.CharField(max_length=20, label='Пароль', widget=forms.PasswordInput(attrs={'placeholder': 'Password1234', 'class': 'PasswordJQ form-control'}))
+
+#class ProfileView(forms.Form):

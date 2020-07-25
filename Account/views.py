@@ -1,7 +1,5 @@
-from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
 from .forms import PersonCreateView, SignInView
 from .models import User
 
@@ -16,13 +14,13 @@ def CheckInForm(request):
         FindObject = User.objects.filter(email=EMAIL)
         ErrNN = False
         ErrE = False
-        if (FindObject.count() > 0): ErrE = True
+        if FindObject.count() > 0: ErrE = True
 
         FindObject = User.objects.filter(NickName=NN)
 
-        if (FindObject.count() > 0): ErrNN = True
+        if FindObject.count() > 0: ErrNN = True
 
-        if ( ErrNN or ErrE):
+        if ErrNN or ErrE:
             user_form = PersonCreateView()
             return render(request, 'CheckIn/base.html', {'form': user_form, 'NickNameError': ErrNN, 'emailError': ErrE})
 
@@ -41,10 +39,13 @@ def SignInForm(request):
         Nick = user_form.getlist('NickName')[0]
         Pass = user_form.getlist('Password')[0]
         FindObject = User.objects.filter(NickName=Nick)
-        if(FindObject.count() > 0):
+        if FindObject.count() > 0:
             FindObject = User.objects.get(NickName=Nick)
-            if (FindObject.Password == Pass):
-                request.session['NickName'] = Nick
+            if FindObject.Password == Pass:
+                if request.session.get_session_cookie_age() != 1209600: request.session.set_expiry(0)
+                request.session['NickName'] = FindObject.NickName
+                request.session['ID'] = FindObject.user_id
+                request.session['URL'] = FindObject.get_absolute_url()
                 return redirect(reverse('HomePage:index'))
         user_form = SignInView()
         return render(request, 'SignIn/base.html', {'form': user_form, 'SignInError': True})
@@ -52,8 +53,15 @@ def SignInForm(request):
         user_form = SignInView()
         return render(request, 'SignIn/base.html', {'form': user_form, 'SignInError': False})
 
+
 def Logout(request):
-    del request.session['NickName']
+    if 'NickName' in request.session: del request.session['NickName']
+    if 'ID' in request.session: del request.session['ID']
+    if 'URL' in request.session: del request.session['URL']
     return redirect(reverse('HomePage:index'))
 
+def Profile(request, UserId):
+    FindUser = User.objects.get(user_id=UserId)
+    data = {'NickName': FindUser.NickName}
+    return render(request, 'Profile/base.html', {'UserData': data})
 # Create your views here.

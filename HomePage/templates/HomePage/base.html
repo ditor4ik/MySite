@@ -24,13 +24,6 @@
             padding:35% 10%;
             text-align: left
         }
-        .parent h1{
-            font-size: 400%;
-        }
-        .parent p1{
-            font-size: 200%;
-        }
-
     </style>
     </head>
     <body>
@@ -44,14 +37,38 @@
         <div class="parent">
             <img src="{% static "img/background.png" %}" class="img-fluid">
             <div>
-                <h1>BookIdeas</h1>
-                <p1>Воплощаем идеи писателей в жизнь</p1>
+                <h1 class="display-3">BookIdeas</h1>
+                <h3>Воплощаем идеи писателей в жизнь</h3>
             </div>
         </div>
         <div class="container-fluid">
             <br>
             <h1 align="center">Лента идей</h1>
-            <br>
+            <div class="row row-cols-1 row-cols-md-3">
+                {% for book in DataBook %}
+                <div class="col mb-4">
+                    <br>
+                    <div class="shadow-lg card border-white mb-3 border">
+                        <div class="card-header">{{ book.Header }}</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ book.ShortText }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-6 ">
+                                    <a href="{{ book.get_absolute_url }}">
+                                        <button type="button" class="btn btn-primary">Перейти</button>
+                                    </a>
+                                </div>
+                                <div class="col-sm-6">
+                                    Автор: <a href='{{ book.AuthorURL }}'>{{ book.Author }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>

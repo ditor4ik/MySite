@@ -1,7 +1,7 @@
 {% load static %}
 {% block navbar %}
         <div class="sticky-top">
-            <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
               <a class="navbar-brand" href="{% url "HomePage:index" %}">BookIdeas</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,12 @@
                         Добро пожаловать, <b>{{ request.session.NickName }}</b>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-left">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ request.session.URL }}">
+                            <img src="{% static "icons/person.svg" %}" alt="" width="16" height="16" title="door-open">
+                            Мой профиль
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url "Content:CreateBook" %}">
                             <img src="{% static "icons/plus-circle.svg" %}" alt="" width="16" height="16" title="door-open">
                             Добавить идею
                         </a>
