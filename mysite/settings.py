@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'HomePage.apps.HomepageConfig',
     'Account.apps.AccountConfig',
     'MainTemplates.apps.MaintemplatesConfig',
-    'Content.apps.ContentConfig',
+    'Content.apps.ContentConfig'
 ]
 
 MIDDLEWARE = [
