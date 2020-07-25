@@ -126,5 +126,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images/upload')
-LOGIN_REDIRECT_URL = '/'
 #AUTH_USER_MODEL = 'CheckIn.User'
