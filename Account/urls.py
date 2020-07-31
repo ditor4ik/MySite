@@ -6,4 +6,5 @@ urlpatterns = [
     path('SignIn/', views.SignInForm, name='SignInForm'),
     path('Logout/', views.Logout, name='Logout'),
     path('Profile/<int:UserId>/', views.Profile, name='Profile'),
+    path('Profile/GetVip/', views.GetVip, name='Vip'),
 ]

@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %} Подписка | BookIdeas{% endblock %}</title>
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        {% block navbar %}
+            {% if 'ID' in request.session %}
+                {% include 'NavBarAcc.html' %}
+            <br>
+            <h1 align="center">Подписка</h1>
+            <br>
+            <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-8">
+                    <div class="card-deck">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                Убрать рекламу
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">убирает рекламу из сайта</p>
+                                Продлить на <input id="target1" type="text">
+                                <p class="month1">месяц</p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary price1">Продлить за 0 ₽</button>
+                            </div>
+                        </div>
+                        <div class="card shadow">
+                            <div class="card-header">
+                                Возможность написать книгу
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Позволяет пользователю создавать книги на сайте</p>
+                                Продлить на <input id="target2" type="text">
+                                <p class="month2">месяц</p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary price2">Продлить за 0 ₽</button>
+                            </div>
+                        </div>
+                        <div class="card shadow">
+                            <div class="card-header">
+                                Убрать рекламу + возможность написать книгу
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">убирает рекламу из сайта и позволяет создавать книги</p>
+                                Продлить на <input id="target3" type="text">
+                                <p class="month3">месяц</p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary price3">Продлить за 0 ₽</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            {% else %}
+                {% include 'NavBar.html' %}
+            <br>
+            <h1 align="center">Подписка</h1>
+            <br>
+            <p align="center">
+                Чтобы продлить подписку, <a href="{% url "Account:SignInForm" %}">зайдите в свой акканут</a> или <a href="{% url "Account:CheckInForm" %}">зарегистрируетесь</a>
+            </p>
+            {% endif %}
+        {% endblock navbar %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    <script>
+        $( "#target1" ).change(function() {
+            if ($( "#target1" ).val() < 2){ $( ".month1" ).html("месяц");  }
+            else{
+                if($( "#target1" ).val() < 5){ $( ".month1" ).html("месяца");  }
+                else{ $( ".month1" ).html("месяцев"); }
+            }
+            $( ".price1" ).html("Продлить за " + $( "#target1" ).val()*50 + " ₽");
+        });
+        $( "#target2" ).change(function() {
+            if ($( "#target2" ).val() < 2){ $( ".month2" ).html("месяц");  }
+            else{
+                if($( "#target2" ).val() < 5){ $( ".month2" ).html("месяца");  }
+                else{ $( ".month2" ).html("месяцев"); }
+            }
+            $( ".price2" ).html("Продлить за " + $( "#target2" ).val()*75 + " ₽");
+        });
+        $( "#target3" ).change(function() {
+            if ($( "#target3" ).val() < 2){ $( ".month3" ).html("месяц");  }
+            else{
+                if($( "#target3" ).val() < 5){ $( ".month3" ).html("месяца");  }
+                else{ $( ".month3" ).html("месяцев"); }
+            }
+            $( ".price3" ).html("Продлить за " + ($( "#target3" ).val()*50 + $( "#target3" ).val()*75) + " ₽");
+        });
+    </script>
+    </body>
+</html>

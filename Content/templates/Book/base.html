@@ -15,24 +15,66 @@
                 {% include 'NavBar.html' %}
             {% endif %}
         {% endblock navbar %}
+        <div class="position-fixed" style="margin: 10% 1%;">
+            <div class="list-group">
+                <a href="#top" class="list-group-item list-group-item-action">Перейти в начало</a>
+                <a href="#Ideas" class="list-group-item list-group-item-action">Перейти к принятым идеям</a>
+                <a href="#commentStart" class="list-group-item list-group-item-action">Перейти к комментариям</a>
+            </div>
+        </div>
         <br>
-        <div class="container ">
+        <div class="container">
             <div class="row">
                 <div class="col"></div>
                 <div class="col-8">
                     <h2 class="font-weight-bold">Книга: <b>{{ DataBook.header }}</b> </h2>
+                    <h2>Автор: <a href="{{ DataBook.NickNameURL }}">{{ DataBook.NickName }}</a></h2>
                     <br>
                     <h2>Описание:</h2>
                     <p>
                         {{ DataBook.ShortText }}
                     </p>
-                    <h2>Оценка: {{DataBook.Rating}}</h2>
+                    <h2 id="Ideas">Идеи:</h2>
+                    {% for GI in GoodIdeas %}
+                        <div class="accordion" id="accordionExample">
+                          <div class="card">
+                            <div class="card-header" id="headingThree">
+                              <h5 class="mb-0">
+                                  <div class="row">
+                                      <div class="col">
+                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ GI.number }}" aria-expanded="false" aria-controls="collapse{{ GI.number }}">
+                                              Идея #{{ GI.number }}
+                                          </button>
+                                      </div>
+                                      <div class="col" align="right">
+                                          <form method="post">
+                                              {% csrf_token %}
+                                              <input type="hidden" name="ID_delete" value="{{ GI.Comment.id }}">
+                                              <button type="submit" class="btn btn-danger" >
+                                                    Убрать идею
+                                              </button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </h5>
+                            </div>
+                            <div id="collapse{{ GI.number }}" class="collapse" aria-labelledby="heading{{ GI.number }}" data-parent="#accordionExample">
+                              <div class="card-body">
+                                    Автор идеи: <a href="{{ GI.Comment.UserURL }}">{{GI.Comment.UserNickName}}</a>
+                                  <br>
+                                  {{ GI.Comment.Text }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endfor %}
                     <h2>Комментарии:</h2>
-                    <div class="card">
+                    <div class="card text-white bg-secondary" id="WriteComment">
                       <div class="card-header">
                         <h4>Написать комментарий</h4>
                       </div>
-                      <div class="card-body">
+                      <div class="card-body" id="AddComment">
+                          {% if 'NickName' in request.session %}
                           <form method="post">
                               {% csrf_token %}
                               <div class="form-group">
@@ -40,23 +82,66 @@
                               </div>
                               <button type="submit" class="btn btn-lg btn-success text-light">Отправить</button>
                           </form>
+                          {% else %}
+                          <p >
+                              Чтобы добавить комментарий, <a href="{% url "Account:SignInForm" %}" style="color: lightgreen">зайдите в свой акканут</a> или <a href="{% url "Account:CheckInForm" %}" style="color: lightgreen">зарегистрируетесь</a>
+                          </p>
+                          {% endif %}
                       </div>
                     </div>
                     <br>
-                    <div class="card">
+                    <div class="card text-white bg-secondary " id="commentStart">
                       <div class="card-header">
-                        <h4>Комментарии</h4>
+                        <h4>Комментарии других пользователей</h4>
                       </div>
                       <div class="card-body">
                         {% for comment in DataComment %}
-                          <div class="card">
+                          <div class="card text-dark" id="{{ comment.id }}">
                               <div class="card-header">
-                                <p><a href="{{ comment.UserURL }}">{{ comment.UserNickName }}</a> пишет:</p>
+                                  <div class="row">
+                                      <div class="col">
+                                          {% if comment.ReplyToComment != None %}
+                                          <p><a href="{{ comment.UserURL }}">{{ comment.UserNickName }}</a>
+                                              отвечает <a href="#{{ comment.ReplyToComment.id }}">{{ comment.ReplyToComment.UserNickName }}</a></p>
+                                          {% else %}
+                                          <p><a href="{{ comment.UserURL }}">{{ comment.UserNickName }}</a> пишет:</p>
+                                          {% endif %}
+                                          <small>Комменатрий добавлен {{ comment.Created|date:"d.m.Y G:i" }}</small>
+                                      </div>
+                                      <div class="col" align="right">
+                                          {% if DataBook.NickName == request.session.NickName %}
+                                            {% if comment.isGoodIdea == False %}
+                                              <form method="post">
+                                                  {% csrf_token %}
+                                                  <input type="hidden" name="ID_comment" value="{{ comment.id }}">
+                                                  <button type="submit" class="btn btn-success">Выбрать эту идею</button>
+                                              </form>
+                                            {% else %}
+                                                Этот комментарий уже выбран в качестве хорошей идеи
+                                            {% endif %}
+                                          {% endif %}
+                                      </div>
+                                  </div>
+
                               </div>
                               <div class="card-body">
                                 {{ comment.Text }}
                               </div>
+                              <div class="card-footer">
+                                  <div class="row">
+                                      <div class="col-2">
+                                          <img src="{% static "icons/hand-thumbs-up.svg" %}" alt="" width="24" height="24" title="hand-thumbs-up">
+                                      </div>
+                                      <div class="col-2">
+                                          <img src="{% static "icons/hand-thumbs-down.svg" %}" alt="" width="24" height="24" title="hand-thumbs-down">
+                                      </div>
+                                      <div class="col-8" align="right">
+                                          <a href="#WriteComment"><button type="button" class="btn btn-primary" onclick="answer({{ comment.id }})">Ответить</button></a>
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
+                          <br>
                         {% endfor %}
                       </div>
                     </div>
@@ -67,5 +152,13 @@
         <br>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+        <script>
+            function answer(MSGid){
+                if ( $("#AddComment").is("p") == false ) {
+                    var comment = $("#AddComment");
+                    comment.find("textarea").val("@id"+MSGid+", ");
+                }
+            }
+        </script>
     </body>
 </html>

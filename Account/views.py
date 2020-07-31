@@ -60,8 +60,13 @@ def Logout(request):
     if 'URL' in request.session: del request.session['URL']
     return redirect(reverse('HomePage:index'))
 
+
 def Profile(request, UserId):
     FindUser = User.objects.get(user_id=UserId)
     data = {'NickName': FindUser.NickName}
     return render(request, 'Profile/base.html', {'UserData': data})
+
+
+def GetVip(request):
+    return render(request, 'Vip/GetVip.html')
 # Create your views here.

@@ -26,6 +26,13 @@ class CommentModel(models.Model):
     UserNickName = models.CharField(max_length=30)
     book_id = models.BigIntegerField()
     user_id = models.BigIntegerField()
+    isGoodIdea = models.BooleanField(default=False)
+    Created = models.DateTimeField(verbose_name=u"Аккаунт создан", auto_now_add=True)
+    ReplyToComment = models.OneToOneField('self', on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        order_with_respect_to = 'ReplyToComment'
+
 
     def __str__(self):
         return str(self.id)
